@@ -1,4 +1,4 @@
-# webot
+# WeBot
 
 A push notification assistant for Weixin, powered by [ClawBot](https://github.com/nicepkg/claw-bot). Think of it as [Bark](https://github.com/Finb/Bark) — but entirely inside Weixin, with no extra app to install.
 
@@ -8,16 +8,16 @@ A push notification assistant for Weixin, powered by [ClawBot](https://github.co
 
 Bark is great for push notifications on iOS, but it requires installing a separate app. If you already live in Weixin, why not receive notifications right there?
 
-**webot** turns a Weixin account into a push endpoint. Any system that can make an HTTP request — CI/CD pipelines, monitoring alerts, cron jobs, home automation, scripts — can push messages directly to your Weixin.
+**WeBot** turns a Weixin account into a push endpoint. Any system that can make an HTTP request — CI/CD pipelines, monitoring alerts, cron jobs, home automation, scripts — can push messages directly to your Weixin.
 
 ## How It Works
 
-webot uses [ClawBot](https://github.com/nicepkg/claw-bot) (via `weixin-agent-sdk`) to connect to Weixin as a bot. It keeps a long-polling session with the Weixin API and exposes a simple HTTP push API.
+WeBot uses [ClawBot](https://github.com/nicepkg/claw-bot) (via `weixin-agent-sdk`) to connect to Weixin as a bot. It keeps a long-polling session with the Weixin API and exposes a simple HTTP push API.
 
 ```
 External System                        Weixin
   (curl, webhook,        ┌──────────┐
-   CI/CD, script)  ────► │  webot   │ ────► Your Weixin
+   CI/CD, script)  ────► │  WeBot   │ ────► Your Weixin
                           │          │       (push notification)
   POST /api/send          │ HTTP API │
   + Bearer token          │ + WX Bot │
@@ -122,7 +122,7 @@ Health check. Returns `{"status": "ok"}`.
 
 ## Deployment
 
-webot runs as a **long-lived process** (not serverless). Deploy it on any server that stays on.
+WeBot runs as a **long-lived process** (not serverless). Deploy it on any server that stays on.
 
 ### Using PM2
 
