@@ -122,52 +122,23 @@ Health check. Returns `{"status": "ok"}`.
 
 ## Deployment
 
-WeBot runs as a **long-lived process** (not serverless). Deploy it on any server that stays on.
-
-### Using PM2
-
 ```bash
-pnpm run login          # Scan QR code once
-pm2 start "pnpm start" --name webot
-```
-
-### Using systemd
-
-Create `/etc/systemd/system/webot.service`:
-
-```ini
-[Unit]
-Description=webot
-After=network.target
-
-[Service]
-Type=simple
-User=your-user
-WorkingDirectory=/path/to/webot
-ExecStart=/usr/bin/env node --env-file=.env --import=tsx/esm main.ts start
-Restart=on-failure
-
-[Install]
-WantedBy=multi-user.target
-```
-
-Then:
-
-```bash
-sudo systemctl enable --now webot
-```
-
-### Using Docker Compose
-
-```bash
+# Start in background
 docker compose up -d
+
+# View logs to scan the QR code for Weixin login
+docker compose logs -f
 ```
 
-### Notes
+On first run, you will see a QR code in the logs. Scan it with your Weixin app to link the bot account. The login token is persisted in a Docker volume — you only need to scan once unless it expires.
 
-- Run `pnpm run login` once to link your Weixin account. The login token is persisted locally — subsequent restarts reuse it unless it expires.
-- Put a reverse proxy (nginx, Caddy) in front if you want HTTPS for the push API.
-- Set `HTTP_PORT` if port 3000 conflicts with other services.
+After the QR code is scanned and the bot is running, press `Ctrl+C` to exit the log viewer. The container continues running in the background.
+
+To check logs later:
+
+```bash
+docker compose logs -f
+```
 
 ## License
 
